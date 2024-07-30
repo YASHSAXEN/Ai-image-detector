@@ -1,0 +1,226 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MainPage</title>
+    <link rel="shortcut icon" href="{% static 'images/logoimage.webp' %}" type="image/x-icon">
+    <link rel="stylesheet" href="/static/style.css" />
+    <style>
+        .nav-item{
+            border:1px;
+            height:50px;
+            width: 50px;
+            border-radius:50%;
+            background-color:orange;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+        .nav-link{
+            font-size:20px;
+            font-weight:900;
+        }
+        .mainform{
+            border:2px dashed black;
+            {% comment %} padding:60px; {% endcomment %}
+            width:450px;
+            display: flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            gap:25px;
+        }
+        .resultdiv{
+            width: 632px;
+            margin-top: 20px;
+            font-weight: 900;
+            font-size: 20px;
+        }
+        .resultinside{
+            gap:2%;
+            width: 100%;
+            display:flex;
+            {% comment %} border: 1px solid red; {% endcomment %}
+            height: 6px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-body-tertiary">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P3G3BJ7X" height="0" width="0"
+            style="display:none;visibility:hidden">
+        </iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <nav class="navbar navbar-expand-sm mb-3 bg-body flex-column pt-2 pb-0 gap-2 bg-body-tertiary">
+        <div class="container-lg justify-content-between">
+            <a class="navbar-brand center ms-3" href="">
+                <p class="site-name">AI Image Detector</p>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <form class="collapse navbar-collapse justify-content-end formdiv" id="navbar" method="post">
+                {% csrf_token %}
+                <input type="text" name="logout" value="logout" hidden>
+                <ul class="navbar-nav mb-2 mb-lg-0  align-items-end" >
+                    <li class="nav-item">
+                        <button class="nav-link" type="submit">{{email}}</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </nav>
+    <div id="content" class="pt-md-4 container-h-100">
+        <div class="w-100" style="max-width: 100vw;">
+            <div class="action_div">
+                {% if status %}
+                <div style="width:10%" display="hidden">
+                </div>
+                {% endif %}
+                <form action="" method="post" class="mainform" enctype='multipart/form-data'
+                    style="{% if status == False %} height:300px; {% endif %}"
+                >
+                    {% csrf_token %}
+                    <input type="text" name="logout" value="file" hidden>
+                    <div class="form-floating mb-3">
+                        <input type="file" name="image_uploaded" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary  py-2 rounded-5" style="width: 70%;">Submit</button>
+                </form>
+                {% if status %}
+                <div class="image_preview">
+                    <p style="width: 100%; height:5%; text-align:center; font-weight:800; font-size:20px;display: flex; justify-content: center;align-items: center;">Image Preview</p>
+                    <img src={{image_path}} alt="" class="preview">
+                </div>
+                {% endif %}
+            </div>
+            {% if status %}
+            <div style="width:100%; height:max-content; display:flex;flex-direction: column; align-items:center;">
+                <div class="resultdiv">
+                    <p>Real:</p>
+                    <div class="resultinside">
+                        <div style="width:{{real}}%; height:100%; background-color:orange; border-radius:12px"></div>
+                        <div style="width:18%; height:100%; display:flex; align-items:center">{{real}}%</div>
+                    </div>
+                </div>
+                <div class="resultdiv">
+                    <p>AI:</p>
+                    <div class="resultinside">
+                        <div style="width:{{fake}}%; height:100%; background-color:orange; border-radius:12px"></div>
+                        <div style="width:18%; height:100%; display:flex; align-items:center">{{fake}}%</div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container-lg">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-3 border-top">
+            <p class="col-md-6 mb-0 text-body-secondary">©2024 IIT Mandi.
+            </p>
+        </footer>
+    </div>
+    <input type="hidden" name="csrfmiddlewaretoken"
+        value="AXl7G3Fy9mSuRQTCNAmcSmuvVOqLjGmYPjBpE2i7TuZKFcSyHEHY1XSLu3cUxJdU" id="csrfToken" />
+    <div class="modal" data-bs-backdrop="static" tabindex="-1" id="resendVerificationModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header border-bottom-0 fs-5">
+                    <h1 class="modal-title fs-5">Resend Verification Email</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        id="resendVerificationModalClose"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="/resend_verification/" class="" id="resendVerificationForm"
+                        hx-post="/resend_verification/" hx-target="#resendVerificationForm"
+                        hx-select="#resendVerificationForm" hx-swap="outerHTML">
+                        <input type="hidden" name="csrfmiddlewaretoken"
+                            value="AXl7G3Fy9mSuRQTCNAmcSmuvVOqLjGmYPjBpE2i7TuZKFcSyHEHY1XSLu3cUxJdU">
+                        <button type="submit" name="submit"
+                            class="btn btn-primary w-100 py-2 my-2 rounded-5 mb-0">Resend Verification</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" data-bs-backdrop="static" tabindex="-1" id="inviteFriendsModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header border-bottom-0 fs-5">
+                    <h1 class="modal-title fs-5">Invite Friends</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        id="inviteFriendsModalClose"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Your invitation link</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" value="" id="refLinkInput" readonly>
+                            <span class="input-group-text"><i class="bi bi-clipboard clipboard-copy"
+                                    data-clipboard-target="#refLinkInput"></i></span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Invitation
+                            text</label>
+                        <div class="position-relative">
+                            <i class="bi bi-clipboard clipboard-copy clipboard-copy-textarea" id="copyRefText"
+                                data-clipboard-target="#refLinkText"></i>
+                            <textarea class="form-control" id="refLinkText" rows="13">Hey, I've been using this incredible tool called Yung Sidekick, and it's a game-changer. It uses AI to automate session notes which has been a lifesaver for me. I genuinely think it could make a huge difference in how you manage your practice too! Here's my personal invite link for you to check it out: Cheers,
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0 w-100 align-items-stretch justify-content-between pb-3">
+                    <a class="btn btn-wa btn-lg rounded-5" id="inviteLinkWa" target="_blank"><i
+                            class="bi bi-whatsapp"></i></a>
+                    <a class="btn btn-primary btn-lg  rounded-5 btn-google-blue" target="_blank" id="inviteLinkGmail">
+                        <i class="bi bi-google"></i></a>
+                    <a class="btn btn-outline-secondary btn-lg  rounded-5" id="inviteLinkMailto">
+                        <i class="bi bi-envelope"></i></a>
+                    <button type="button" class="btn btn-secondary btn-lg px-5 rounded-5 ms-auto"
+                        data-bs-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 start-0 end-0 p-3">
+        <div class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div class="modal" data-bs-backdrop="static" tabindex="-1" id="js-confirm-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="mb-0" id="js-confirm-modal-title"></h5>
+                    <p class="mb-0" id="js-confirm-modal-body"></p>
+                </div>
+                <div class="modal-footer flex-nowrap p-0">
+                    <button type="button"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end fw-bold"
+                        id="js-confirm-modal-confirm"></button>
+                    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                        id="confirmModalClose" data-bs-dismiss="modal">Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</html>

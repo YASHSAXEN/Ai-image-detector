@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Detector</title>
+    <link rel="shortcut icon" href="{% static 'images/logoimage.webp' %}" type="image/x-icon">
+    <link rel="stylesheet" href="/static/frontpage.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="main-container">
+        <div class="navbar">
+            <div class="nav-logo">
+                <div class="nav-logo-name">
+                    <a href="/"><p>AI Image Detector</p></a>
+                </div>
+            </div>
+            <div class="nav-items-container">
+                <div class="nav-items">
+                    <div class="nav-item">
+                        <a href="#working"><p>How it Works</p></a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#organisation"><p>Organizations</p></a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-buttons-container">
+                <div class="nav-buttons">
+                    <div class="nav-button">
+                        <a href="/signedupemail">Sign Up</a>
+                    </div>
+                    <div class="nav-button">
+                        <a href="/loginpage" class="login">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="heroSection">
+            <div class="heroSection-image-container">
+                <div class="herosection-image">
+                    <img src="{% static 'images/heroimage.png'  %}" alt="Hero-image">
+                </div>
+            </div>
+            <div class="hero-section-title-container">
+                <div class="hero-section-title">
+                    <p>A Tool to Check that the Image is AI Generated or Not</p>
+                </div>
+            </div>
+            <div class="hero-section-login-container">
+                <div class="hero-section-login-button">
+                    <a href="/loginpage"><button>Login</button></a>
+                </div>
+                <div class="hero-section-login-desc">
+                    <p>No credit card required</p>
+                </div>
+            </div>
+            <div class="hero-section-end"></div>
+        </div>
+        <div class="information-container">
+            <div class="working-container" id="working">
+                <div class="working-container-heading">
+                    <div>
+                        <p>How it works</p>
+                    </div>
+                </div>
+                <div class="working-container-procedures">
+                    <div class="working-container-procedure">
+                        <div class="working-container-procedure-logo">
+                            <div>
+                                <img src="/static/images/work-logo-1.webp" alt="">
+                            </div>
+                        </div>
+                        <div class="working-container-procedure-heading">
+                            <div>
+                                <p>Upload Image</p>
+                            </div>
+                        </div>
+                        <div class="working-container-procedure-desc">
+                            <div>
+                                <p>Users upload an image in formats like JPEG or PNG</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="working-container-procedure">
+                        <div class="working-container-procedure-logo">
+                            <div>
+                                <img src="/static/images/work-logo-3.webp" alt="">
+                            </div>
+                        </div>
+                        <div class="working-container-procedure-heading">
+                            <div>
+                                <p>Probability Calculation</p>
+                            </div>
+                        </div>
+                        <div class="working-container-procedure-desc">
+                            <div>
+                                <p>The image is resized and normalized to prepare it for analysis. The model outputs a probability score indicating the likelihood of the image being AI-generated.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="working-container-procedure">
+                        <div class="working-container-procedure-logo">
+                            <div>
+                                <img src="/static/images/work-logo-2.webp" alt="">
+                            </div>
+                        </div>
+                        <div class="working-container-procedure-heading">
+                            <div>
+                                <p>Receive</p>
+                            </div>
+                        </div>
+                        <div class="working-container-procedure-desc">
+                            <div>
+                                <p>The probability score and a classification label ("AI-Generated" or "Real") are shown to the user.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="organization-info-container" id="organisation">
+            <div class="organization-info-cont">
+                <div class="organization-info-heading">
+                    <div>
+                        <p>AI-Image Detector for your team</p>
+                    </div>
+                </div>
+                <div class="organization-info-desc">
+                    <div>
+                        <p>The AI Image Detector, created by the IIT Mandi iHub and HCI Foundation, empowers users to detect whether an image is AI-generated or real. By providing a probabilistic output, this tool aids in enhancing digital content authenticity and integrity, helping users make informed decisions in an increasingly AI-driven world. Our commitment to excellence in research and development ensures that our tools are both reliable and user-friendly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-container">
+                <div>
+                    <p>AI Image Detector</p>
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </div>
+            </div>
+            <div class="footer-desc">
+                <p>© 2024 IIT Mandi, India</p>
+            </div>
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
